@@ -2,7 +2,7 @@ getdata <- function() {
   #' Base url for data
   base_url <- "http://www.espn.com/nba/attendance/_/year/"
   #' Range of available years
-  years <- seq(2001, 2017)
+  years <- seq(2001, 2018)
 
   #' `as_num` for converting number strings with commas to numbers.
   as_num <- function(string){
