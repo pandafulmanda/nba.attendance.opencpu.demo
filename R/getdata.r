@@ -6,8 +6,8 @@ getdata <- function() {
 
   #' `as_num` for converting number strings with commas to numbers.
   as_num <- function(string){
-    num <- string %>%
-      gsub(',', '', .) %>%
+    num <- string magrittr::"%>%"
+      gsub(',', '', .) magrittr::"%>%"
       as.numeric
     num
   }
@@ -15,10 +15,10 @@ getdata <- function() {
   #' `make_header` from the first two rows of data.
   make_header <- function(index, headers){
     if(index > 2) {
-      header <- index %>%
-        c %>%
-        select(headers, .) %>%
-        unlist %>%
+      header <- index magrittr::"%>%"
+        c magrittr::"%>%"
+        select(headers, .) magrittr::"%>%"
+        unlist magrittr::"%>%"
         paste(., collapse = ' ')
     } else {
       header <- as.vector(unlist(headers[index])[2])
@@ -28,15 +28,15 @@ getdata <- function() {
 
   get_data <- function(year){
     url <- paste(base_url, year, sep='')
-    year_attendance <- url %>%
-      read_html %>%
-      html_nodes('table') %>%
+    year_attendance <- url magrittr::"%>%"
+      read_html magrittr::"%>%"
+      html_nodes('table') magrittr::"%>%"
       html_table()
 
   #' Make better headers and remove the 2 column name rows.
     header_rows <- year_attendance[[1]][1:2,]
-    names(year_attendance[[1]]) <- seq(1, length(header_rows)) %>%
-      map(~ make_header(., header_rows)) %>%
+    names(year_attendance[[1]]) <- seq(1, length(header_rows)) magrittr::"%>%"
+      map(~ make_header(., header_rows)) magrittr::"%>%"
       unlist
     year_attendance <- year_attendance[[1]][-1:-2,]
 
@@ -61,8 +61,8 @@ getdata <- function() {
   }
 
   #' `get_data` for each year and combine the data by binding the rows of data.
-  all_years_attendance <- years %>%
-    map(get_data) %>%
+  all_years_attendance <- years magrittr::"%>%"
+    map(get_data) magrittr::"%>%"
     bind_rows
 
   # NA for outlier.
