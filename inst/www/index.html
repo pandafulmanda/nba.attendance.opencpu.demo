@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+
+  <!-- OpenCPU client library -->
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//cdn.opencpu.org/opencpu-0.4.js"></script>
+
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="column">
+        <div id="chart-wrapper"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    ocpu.seturl("//pandafulmanda.ocpu.io/nba.attendance.opencpu.demo/R");
+
+    var svg = dimple.newSvg("#chart-wrapper", 800, 600);
+
+    function plotData(data) {
+      var chart = new dimple.chart(svg, data);
+      chart.addCategoryAxis("x", "Year");
+      chart.addMeasureAxis("y", "Overall.AVG");
+      chart.addSeries("TEAM", dimple.plot.line);
+      chart.draw();
+    }
+
+    var request = ocpu.call('getdata', {}, function(session) {
+      session.getObject(plotData);
+    }).then(function(response){
+      return response;
+    }).fail(function(){
+        alert("Error: " + request.responseText);
+    });
+
+  </script>
+</body>
+</html>
