@@ -29,7 +29,7 @@ getdata <- function() {
   get_data <- function(year){
     url <- paste(base_url, year, sep='')
     year_attendance <- url %>%
-      read_html %>%
+      xml2::read_html %>%
       html_nodes('table') %>%
       html_table()
 

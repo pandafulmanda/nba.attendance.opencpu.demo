@@ -12,4 +12,5 @@ Imports:
   purrr,
   magrittr,
   dplyr,
-  ggplot2
+  ggplot2,
+  xml2
